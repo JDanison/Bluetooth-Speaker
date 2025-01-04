@@ -1,0 +1,11 @@
+Display Connections:
+ESP  ---> ILI9341 SPI TFT
+------------------------
+3.3V ---> VCC & LED
+GND  ---> GND
+D23 (SPI_MOSI) ---> MOSI
+D19 (SPI_MISO) ---> MISO
+D18 (SPI_CLK)  ---> SCK
+D4 ---> RST
+D2 ---> DC
+D15 ---> CS
