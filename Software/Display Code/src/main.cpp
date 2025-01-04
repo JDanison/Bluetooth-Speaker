@@ -1,3 +1,4 @@
+// THIS IS NOT MY CODE. This is the "TFT_Starfield" example in the tft_eSPI library.
 // Animates white pixels to simulate flying through a star field
 
 #include <SPI.h>
