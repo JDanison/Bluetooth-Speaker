@@ -9,3 +9,6 @@ D18 (SPI_CLK)  ---> SCK
 D4 ---> RST
 D2 ---> DC
 D15 ---> CS
+
+Idea:
+Edit BLE Keyboard Library to include getting song metadata
