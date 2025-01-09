@@ -49,9 +49,9 @@ BleKeyboard bleKeyboard("Net House Speaker");
 #define LED_BUILTIN 2 // GPIO 2
 
 // Define ILI9341 TFT pins
-#define TFT_CS   15  // Chip select
-#define TFT_DC   2   // Data/command
-#define TFT_RST  4   // Reset
+#define TFT_CS   15   // Chip select
+#define TFT_DC   2    // Data/command
+#define TFT_RST  4    // Reset
 
 // Create ILI9341 instance
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
@@ -61,8 +61,8 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 int playPauseButtonState  = HIGH;  // Play / Pause Button
 int nextTrackButtonState  = HIGH;  // Next Track Button
 int prevTrackButtonState  = HIGH;  // Previous Track Button
-int volumeUpButtonState   = HIGH;   // Volume Up Button
-int volumeDownButtonState = HIGH; // Volume Down Button
+int volumeUpButtonState   = HIGH;  // Volume Up Button
+int volumeDownButtonState = HIGH;  // Volume Down Button
 
 // Track First Connection
 bool firstConnection = false;
@@ -135,28 +135,28 @@ void loop() {
     if (nextTrackButtonState == LOW) {
       Serial.println("Next Track button pressed");
       bleKeyboard.write(KEY_MEDIA_NEXT_TRACK); // Send next track media key
-      delay(300); // Debounce delay
+      delay(500); // Debounce delay
     }
 
     // If the previous track button is pressed
     if (prevTrackButtonState == LOW) {
       Serial.println("Previous Track button pressed");
       bleKeyboard.write(KEY_MEDIA_PREVIOUS_TRACK); // Send previous track media key
-      delay(300); // Debounce delay
+      delay(500); // Debounce delay
     }
 
     // If the volume up button is pressed
     if (volumeUpButtonState == LOW) {
       Serial.println("Volume Up button pressed");
       bleKeyboard.write(KEY_MEDIA_VOLUME_UP); // Send volume up key
-      delay(300); // Debounce delay
+      delay(500); // Debounce delay
     }
 
     // If the volume down button is pressed
     if (volumeDownButtonState == LOW) {
       Serial.println("Volume Down button pressed");
       bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN); // Send volume down key
-      delay(300); // Debounce delay
+      delay(500); // Debounce delay
     }
 
   } else {
