@@ -183,7 +183,7 @@ void displayRawImage(const char *filePath) {
   /* Create & Set Constants */
   // tft Display dimensions
   uint16_t screenWidth = tft.width();    // TFT display width
-  uint16_t screenHeight = tft.height(); // TFT display height
+  uint16_t screenHeight = tft.height();  // TFT display height
 
   // Original dimensions of the RAW image
   uint16_t rawImageWidth = 240;  // Replace with the actual RAW image width
@@ -194,7 +194,7 @@ void displayRawImage(const char *filePath) {
   float scaleY = (float)screenHeight / rawImageHeight;
 
   // Use separate scaling factors for x and y to stretch both dimensions
-  uint16_t imageWidth = screenWidth;  // Fully stretches horizontally
+  uint16_t imageWidth = screenWidth;   // Fully stretches horizontally
   uint16_t imageHeight = screenHeight; // Fully stretches vertically
 
   uint16_t pixelColor;
