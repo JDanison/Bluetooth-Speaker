@@ -58,10 +58,10 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 
 /* Variables */
 // Variables to track button states
-int playPauseButtonState = HIGH;  // Play / Pause Button
-int nextTrackButtonState = HIGH;  // Next Track Button
-int prevTrackButtonState = HIGH;  // Previous Track Button
-int volumeUpButtonState = HIGH;   // Volume Up Button
+int playPauseButtonState  = HIGH;  // Play / Pause Button
+int nextTrackButtonState  = HIGH;  // Next Track Button
+int prevTrackButtonState  = HIGH;  // Previous Track Button
+int volumeUpButtonState   = HIGH;   // Volume Up Button
 int volumeDownButtonState = HIGH; // Volume Down Button
 
 // Track First Connection
@@ -79,11 +79,11 @@ void setup() {
   bleKeyboard.begin();
 
   // Set button pins as inputs with pull-ups
-  pinMode(playPauseButtonPin, INPUT_PULLUP);
-  pinMode(nextTrackButtonPin, INPUT_PULLUP);
-  pinMode(prevTrackButtonPin, INPUT_PULLUP);
-  pinMode(volumeUpButtonPin, INPUT_PULLUP);
-  pinMode(volumeDownButtonPin, INPUT_PULLUP);
+  pinMode(playPauseButtonPin,  INPUT_PULLDOWN);
+  pinMode(nextTrackButtonPin,  INPUT_PULLDOWN);
+  pinMode(prevTrackButtonPin,  INPUT_PULLDOWN);
+  pinMode(volumeUpButtonPin,   INPUT_PULLDOWN);
+  pinMode(volumeDownButtonPin, INPUT_PULLDOWN);
 
   // Set Built-in LED as output
   pinMode(LED_BUILTIN, OUTPUT);
@@ -118,10 +118,10 @@ void loop() {
     }
     
     // Read button states
-    playPauseButtonState = digitalRead(playPauseButtonPin);
-    nextTrackButtonState = digitalRead(nextTrackButtonPin);
-    prevTrackButtonState = digitalRead(prevTrackButtonPin);
-    volumeUpButtonState = digitalRead(volumeUpButtonPin);
+    playPauseButtonState  = digitalRead(playPauseButtonPin);
+    nextTrackButtonState  = digitalRead(nextTrackButtonPin);
+    prevTrackButtonState  = digitalRead(prevTrackButtonPin);
+    volumeUpButtonState   = digitalRead(volumeUpButtonPin);
     volumeDownButtonState = digitalRead(volumeDownButtonPin);
 
     // If the play/pause button is pressed
