@@ -45,6 +45,9 @@ BleKeyboard bleKeyboard("Net House Speaker");
 #define volumeUpButtonPin   33  // GPIO 33 
 #define volumeDownButtonPin 32  // GPIO 32 
 
+// Supplemental 3.3V Source
+#define constantHigh        13  // GPIO 13
+
 // Built-In LED Pin
 #define LED_BUILTIN 2 // GPIO 2
 
@@ -73,7 +76,7 @@ void displayRawImage(const char *filePath);
 /* Setup - Runs Once */
 void setup() {
   // Initialize serial communication
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   // Initialize the BLE Keyboard
   bleKeyboard.begin();
@@ -84,6 +87,10 @@ void setup() {
   pinMode(prevTrackButtonPin,  INPUT_PULLDOWN);
   pinMode(volumeUpButtonPin,   INPUT_PULLDOWN);
   pinMode(volumeDownButtonPin, INPUT_PULLDOWN);
+  
+  // Set this pin to be an additional 3.3V source
+  pinMode(constantHigh, OUTPUT);
+  digitalWrite(constantHigh, HIGH);
 
   // Set Built-in LED as output
   pinMode(LED_BUILTIN, OUTPUT);
@@ -123,6 +130,7 @@ void loop() {
     prevTrackButtonState  = digitalRead(prevTrackButtonPin);
     volumeUpButtonState   = digitalRead(volumeUpButtonPin);
     volumeDownButtonState = digitalRead(volumeDownButtonPin);
+    
 
     // If the play/pause button is pressed
     if (playPauseButtonState == LOW) {
