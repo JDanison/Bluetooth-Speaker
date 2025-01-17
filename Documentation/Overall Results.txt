@@ -1,0 +1,15 @@
+Reason for Project:
+I got a large speaker for free from an old school class. This speaker was simply a two input audio speaker, but I had nothing I could use it for. I decided that I wanted to turn it into a bluetooth speaker. I want to also be able to control this speaker as if it was just a normal commerical speaker. This would mean I would need some sort of bluetooth controller that I could use for Audio + Button control. 
+
+After going through the design process, I decided on using a bluetooth aplifier as my method for driving the speaker audio. My original idea of making this powered through a microcontroller was abandoed after I was unable to amplify an audio signal that was as clean as I was envisioning. I tried using a Class B auido amplifier from my courses, but there was a level of noise that I was unable to reduce to an acceptable level. This turned this speaker into being bluetooth controlled using a microcontroller rather than both audio and control.
+
+Additionally I also decided that adding a mini display would make this project more unique from the commerical speakers. I originally wanted to make the speaker display the current song title and album cover, but after long investiagtion and error, I was out of flash memory space for my project. I ended up deciding that I would just like a simple image to be displayed on the display. 
+
+Results:
+Pictures of the results of the project can be found in the "Result Pictures" folder. The sound quality is something that I am proud of, I am looking forward to its many uses in the future.
+
+BoM:
+A bill of materials can be found within this folder named "BoM.xlsx". This contains every part that was used in this project as well as a link to the place of purchase.
+
+Code:
+All code used for this project (including archived code) can be found within the "Software" folder within the github. Instructions for how to use the code can be found at the top of each code file itself.
