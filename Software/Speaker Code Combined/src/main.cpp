@@ -45,24 +45,27 @@ BleKeyboard bleKeyboard("Net House Speaker");
 #define volumeUpButtonPin   33  // GPIO 33 
 #define volumeDownButtonPin 32  // GPIO 32 
 
+// Supplemental 3.3V Source
+#define constantHigh        13  // GPIO 13
+
 // Built-In LED Pin
 #define LED_BUILTIN 2 // GPIO 2
 
 // Define ILI9341 TFT pins
-#define TFT_CS   15  // Chip select
-#define TFT_DC   2   // Data/command
-#define TFT_RST  4   // Reset
+#define TFT_CS   15   // Chip select
+#define TFT_DC   2    // Data/command
+#define TFT_RST  4    // Reset
 
 // Create ILI9341 instance
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 
 /* Variables */
 // Variables to track button states
-int playPauseButtonState = HIGH;  // Play / Pause Button
-int nextTrackButtonState = HIGH;  // Next Track Button
-int prevTrackButtonState = HIGH;  // Previous Track Button
-int volumeUpButtonState = HIGH;   // Volume Up Button
-int volumeDownButtonState = HIGH; // Volume Down Button
+int playPauseButtonState  = HIGH;  // Play / Pause Button
+int nextTrackButtonState  = HIGH;  // Next Track Button
+int prevTrackButtonState  = HIGH;  // Previous Track Button
+int volumeUpButtonState   = HIGH;  // Volume Up Button
+int volumeDownButtonState = HIGH;  // Volume Down Button
 
 // Track First Connection
 bool firstConnection = false;
@@ -73,17 +76,21 @@ void displayRawImage(const char *filePath);
 /* Setup - Runs Once */
 void setup() {
   // Initialize serial communication
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   // Initialize the BLE Keyboard
   bleKeyboard.begin();
 
   // Set button pins as inputs with pull-ups
-  pinMode(playPauseButtonPin, INPUT_PULLUP);
-  pinMode(nextTrackButtonPin, INPUT_PULLUP);
-  pinMode(prevTrackButtonPin, INPUT_PULLUP);
-  pinMode(volumeUpButtonPin, INPUT_PULLUP);
-  pinMode(volumeDownButtonPin, INPUT_PULLUP);
+  pinMode(playPauseButtonPin,  INPUT_PULLDOWN);
+  pinMode(nextTrackButtonPin,  INPUT_PULLDOWN);
+  pinMode(prevTrackButtonPin,  INPUT_PULLDOWN);
+  pinMode(volumeUpButtonPin,   INPUT_PULLDOWN);
+  pinMode(volumeDownButtonPin, INPUT_PULLDOWN);
+  
+  // Set this pin to be an additional 3.3V source
+  pinMode(constantHigh, OUTPUT);
+  digitalWrite(constantHigh, HIGH);
 
   // Set Built-in LED as output
   pinMode(LED_BUILTIN, OUTPUT);
@@ -118,11 +125,12 @@ void loop() {
     }
     
     // Read button states
-    playPauseButtonState = digitalRead(playPauseButtonPin);
-    nextTrackButtonState = digitalRead(nextTrackButtonPin);
-    prevTrackButtonState = digitalRead(prevTrackButtonPin);
-    volumeUpButtonState = digitalRead(volumeUpButtonPin);
+    playPauseButtonState  = digitalRead(playPauseButtonPin);
+    nextTrackButtonState  = digitalRead(nextTrackButtonPin);
+    prevTrackButtonState  = digitalRead(prevTrackButtonPin);
+    volumeUpButtonState   = digitalRead(volumeUpButtonPin);
     volumeDownButtonState = digitalRead(volumeDownButtonPin);
+    
 
     // If the play/pause button is pressed
     if (playPauseButtonState == LOW) {
@@ -135,28 +143,28 @@ void loop() {
     if (nextTrackButtonState == LOW) {
       Serial.println("Next Track button pressed");
       bleKeyboard.write(KEY_MEDIA_NEXT_TRACK); // Send next track media key
-      delay(300); // Debounce delay
+      delay(500); // Debounce delay
     }
 
     // If the previous track button is pressed
     if (prevTrackButtonState == LOW) {
       Serial.println("Previous Track button pressed");
       bleKeyboard.write(KEY_MEDIA_PREVIOUS_TRACK); // Send previous track media key
-      delay(300); // Debounce delay
+      delay(500); // Debounce delay
     }
 
     // If the volume up button is pressed
     if (volumeUpButtonState == LOW) {
       Serial.println("Volume Up button pressed");
       bleKeyboard.write(KEY_MEDIA_VOLUME_UP); // Send volume up key
-      delay(300); // Debounce delay
+      delay(500); // Debounce delay
     }
 
     // If the volume down button is pressed
     if (volumeDownButtonState == LOW) {
       Serial.println("Volume Down button pressed");
       bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN); // Send volume down key
-      delay(300); // Debounce delay
+      delay(500); // Debounce delay
     }
 
   } else {
@@ -183,7 +191,7 @@ void displayRawImage(const char *filePath) {
   /* Create & Set Constants */
   // tft Display dimensions
   uint16_t screenWidth = tft.width();    // TFT display width
-  uint16_t screenHeight = tft.height(); // TFT display height
+  uint16_t screenHeight = tft.height();  // TFT display height
 
   // Original dimensions of the RAW image
   uint16_t rawImageWidth = 240;  // Replace with the actual RAW image width
@@ -194,7 +202,7 @@ void displayRawImage(const char *filePath) {
   float scaleY = (float)screenHeight / rawImageHeight;
 
   // Use separate scaling factors for x and y to stretch both dimensions
-  uint16_t imageWidth = screenWidth;  // Fully stretches horizontally
+  uint16_t imageWidth = screenWidth;   // Fully stretches horizontally
   uint16_t imageHeight = screenHeight; // Fully stretches vertically
 
   uint16_t pixelColor;
